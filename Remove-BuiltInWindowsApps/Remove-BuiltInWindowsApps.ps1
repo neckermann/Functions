@@ -31,7 +31,7 @@ function Remove-BuiltInWindowsApps  {
             }
         }else{
             foreach ($Computer in $ComputerName){
-                if (Test-Connection $Computer -Count 1 -qu){
+                if (Test-Connection $Computer -Count 1 -Quiet){
                     Invoke-Command -ComputerName $Computer -ScriptBlock {
                         $ProvisionedApps = Get-ProvisionedAppxPackage -Online | Select-Object PackageName
                             foreach ($ProvisionedApp in $ProvisionedApps){
