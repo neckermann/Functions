@@ -22,6 +22,7 @@ function Remove-BuiltInWindowsApps  {
     BEGIN{}
     PROCESS{
         If($ComputerName -eq $null){
+            Write-Host "*******BE VERY CAREFUL USING THIS FUNCITON********`nMAKE SURE YOU KNOW WHAT YOU ARE DOING BEFORE TRYING TO REMOVE THESE BUILT IN APPLICATIONS.`nIF YOU REMOVE THE WRONG ONES YOU MAY DAMAGE YOUR OPERATING SYSTEM!" -ForegroundColor Yellow
             $ProvisionedApps = Get-ProvisionedAppxPackage -Online | Select-Object PackageName
             foreach ($ProvisionedApp in $ProvisionedApps){
                 $Response = Read-Host "Would you like to completely remove $ProvisionedApp from this computer? Y/N"
@@ -31,7 +32,8 @@ function Remove-BuiltInWindowsApps  {
             }
         }else{
             foreach ($Computer in $ComputerName){
-                if (Test-Connection $Computer -Count 1 -Quiet){
+            Write-Host "*******BE VERY CAREFUL USING THIS FUNCITON********`nMAKE SURE YOU KNOW WHAT YOU ARE DOING BEFORE TRYING TO REMOVE THESE BUILT IN APPLICATIONS.`nIF YOU REMOVE THE WRONG ONES YOU MAY DAMAGE YOUR OPERATING SYSTEM!" -ForegroundColor Yellow
+                if (Test-Connection $Computer -Count 1 -Quiet{
                     Invoke-Command -ComputerName $Computer -ScriptBlock {
                         $ProvisionedApps = Get-ProvisionedAppxPackage -Online | Select-Object PackageName
                             foreach ($ProvisionedApp in $ProvisionedApps){
