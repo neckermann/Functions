@@ -1,1 +1,18 @@
-
+function Get-InstalledWindowsFeatures {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$true,
+                   ValueFromPipeline=$true,
+                   ValueFromPipelineByPropertyName=$true)]
+        [string[]]$ComputerName
+    )
+    BEGIN{}
+    PROCESS{
+        foreach ($Computer in $ComputerName){
+            if (Test-CompConnection $Computer){
+              Get-WindowsFeature -ComputerName $computer|Where-Object Installed -EQ $true|Select-Object Name,DisplayName
+            }
+        }
+    }
+    END{}
+}
